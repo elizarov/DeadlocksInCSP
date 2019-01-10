@@ -1,0 +1,16 @@
+# State machines of original code (with deadlock)
+
+E      # Environment constantly sending references
+0 r! 0
+.
+
+D      # Downloader coroutine
+0 r? 1 # reference.receive
+1 l! 0 # locations.send
+0 c? 0 # contents.receive
+.
+
+W 4    # Worker coroutines pool
+0 l? 1 # locations.receive
+1 c! 0 # contents.send
+.
