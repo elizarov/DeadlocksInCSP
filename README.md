@@ -10,29 +10,16 @@ The original code based on Kotlin Conf 2018 talk "Kotlin Coroutines in Practice"
 
 See the following sources:
 
-* [DownloaderOriginal.kt](src/DownloaderOriginal.kt) &mdash; the original version from presentation that 
-  suffers from deadlock 
-  ([playground](https://tinyurl.com/yasm6els)).
-* [Downloader.go](src/Downloader.go) &mdash; Go version of the same code
-  ([playground](https://play.golang.org/p/uaaMhdmsVmS)).
-* [DownloaderWithMailbox.kt](src/DownloaderWithMailbox.kt) &mdash; does not use `select`, but actor patter instead.
-  Still deadlocks.
-  ([playground](https://tinyurl.com/y9ru24yo)).
-* [DownloaderWithBuffer.kt](src/DownloaderWithBuffer.kt) &mdash; as original but with buffers for both
-  `locations` and `contents` channels. Still deadlocks
-  ([playground](https://tinyurl.com/yd8g6gsa)).
-* [DownloaderWithUnlimitedBuffer.kt](src/DownloaderWithUnlimitedBuffer.kt) &mdash; uses unlimited buffer for
-  `contents` channel and seems to work      
-  ([playground](https://tinyurl.com/ycsrdr6g)).
-* [DownloaderWithPriority.kt](src/DownloaderWithPriority.kt) &mash; gives `contents` channel priority over `references`
-  in downloader coroutine. Still deadlocks  
-  ([playground](https://tinyurl.com/y8kk4gk9)). 
-* [DownloaderFixedPriority.kt](src/DownloaderFixedPriority.kt) &mdash; fixes the problem by adjusting priority of
-  `select` in downloader (`contents` first) and using a buffer for `contents` channels     
-  ([playground](https://tinyurl.com/y8bbo5v7)).
-* [DownloaderFixedSelect.kt](src/DownloaderFixedSelect.kt) &mdash; fixed the problem by performing `locations.send`
-  inside `select` in downloader       
-  ([playground](https://tinyurl.com/ycagcomy)).    
+| Source | Description | Playground |
+| ------ | ----------- | ---------- |
+| [DownloaderOriginal.kt](src/DownloaderOriginal.kt)           | The original version from presentation that suffers from deadlock. | [playground](https://tinyurl.com/yasm6els) |
+| [Downloader.go](src/Downloader.go)                           | Go version of the same code. | [playground](https://play.golang.org/p/uaaMhdmsVmS) |
+| [DownloaderWithMailbox.kt](src/DownloaderWithMailbox.kt)     | Does not use `select`, but actor patter instead. Still deadlocks. | [playground](https://tinyurl.com/y9ru24yo) |
+| [DownloaderWithBuffer.kt](src/DownloaderWithBuffer.kt)       | Same as original but with buffers for both `locations` and `contents` channels. Still deadlocks. | [playground](https://tinyurl.com/yd8g6gsa) |
+| [DownloaderWithUnlimitedBuffer.kt](src/DownloaderWithUnlimitedBuffer.kt)| Uses unlimited buffer for `contents` channel and seems to work. | [playground](https://tinyurl.com/ycsrdr6g) |
+| [DownloaderWithPriority.kt](src/DownloaderWithPriority.kt)   | Gives `contents` channel priority over `references` in downloader coroutine. Still deadlocks. | [playground](https://tinyurl.com/y8kk4gk9) | 
+| [DownloaderFixedPriority.kt](src/DownloaderFixedPriority.kt) | Fixes the problem by adjusting priority of `select` in downloader (`contents` first) and using a buffer for `contents` channels. | [playground](https://tinyurl.com/y8bbo5v7) |
+| [DownloaderFixedSelect.kt](src/DownloaderFixedSelect.kt)     | Fixes the problem by performing `locations.send` inside `select` in downloader. | [playground](https://tinyurl.com/ycagcomy) |    
 
 ## Verifier
 
